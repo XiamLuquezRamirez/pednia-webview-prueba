@@ -1,6 +1,5 @@
 name: Compilar APK PedNia
 
-# Se ejecuta al hacer push y también manualmente (botón "Run workflow").
 on:
   push:
     branches: [ main, master ]
@@ -22,8 +21,12 @@ jobs:
       - name: Preparar Android SDK
         uses: android-actions/setup-android@v3
 
+      - name: Instalar Gradle
+        uses: gradle/actions/setup-gradle@v3
+        with:
+          gradle-version: '8.9'
+
       - name: Generar Gradle wrapper
-        # El repo no incluye el gradle-wrapper.jar (binario); Gradle lo crea aquí.
         run: gradle wrapper --gradle-version 8.9
 
       - name: Dar permiso de ejecución a gradlew
